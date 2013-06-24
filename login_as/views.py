@@ -4,16 +4,16 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect, Http404
 
 def chooser(request):
-    if not request.user.is_superuser:
-        raise Http404
-    return render_to_response('login_as/chooser.html',
-        {'users': get_user_model().objects.all()})
+	if not request.user.is_superuser:
+		raise Http404
+	return render_to_response('login_as/chooser.html',
+		{'users': get_user_model().objects.all()})
 
-def login(request, username):
-    if not request.user.is_superuser:
-        raise Http404
-    authed = authenticate(from_user=request.user, to_username=username)
-    if not authed:
-        raise Http404
-    auth_login(request, authed)
-    return HttpResponseRedirect('/')
+def login(request, user_id):
+	if not request.user.is_superuser:
+		raise Http404
+	authed = authenticate(from_user = request.user, to_user_id = user_id)
+	if not authed:
+		raise Http404
+	auth_login(request, authed)
+	return HttpResponseRedirect('/')
