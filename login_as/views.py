@@ -1,13 +1,13 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect, Http404
 
 def chooser(request):
     if not request.user.is_superuser:
         raise Http404
     return render_to_response('login_as/chooser.html',
-        {'users': User.objects.all().order_by('username')})
+        {'users': get_user_model().objects.all()})
 
 def login(request, username):
     if not request.user.is_superuser:
