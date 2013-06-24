@@ -16,4 +16,6 @@ def login(request, user_id):
 	if not authed:
 		raise Http404
 	auth_login(request, authed)
+	# Used as a flag that we logged in as admin
+	request.session['superadmin_login'] = True
 	return HttpResponseRedirect('/')
